@@ -4,15 +4,30 @@
   <title>Javascript Sound Pad - Just Use Your Keyboard</title>
   <script type="text/javascript" src="assets/js/lib/paper-full.js"></script>
   <script type="text/paperscript" canvas="myCanvas">
-    for(var x = 0; x < 1000; x+=100){
-      for(var y = 0; y < 1000; y+=100){
-        new Path.Circle(new Point(x,y), 10).fillColor = "blue";
+    var dotArray = [];
+
+    function onKeyDown(event) {
+      // When a key is pressed, set the content of the text item
+      var maxPoint = new Point(view.size.width,view.size.height);
+      var randomPoint = Point.random();
+      var point = maxPoint * randomPoint;
+      var newCircle = new Path.Circle(point,300)
+      newCircle.fillColor = "blue";
+      dotArray.push(newCircle);
+    }
+
+    function onFrame(event){
+      for(var i = 0; i < dotArray.length;i++){
+        dotArray[i].fillColor.hue += 1;
+        dotArray[i].scale(.9);
       }
     }
 </script>
 <link rel="stylesheet" type="text/css" href="assets/css/beatmaker.css">
 </head>
 <body>
-  <canvas id="myCanvas" resize></canvas>
+  <canvas id="myCanvas" resize>
+    <h1>Press Any Key To Interact With Me</h1>
+  </canvas>
 </body>
 </html>
